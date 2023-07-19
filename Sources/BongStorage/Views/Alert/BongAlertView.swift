@@ -10,13 +10,13 @@ import SwiftUI
 // MARK: - ㄴ BongAlertView
 public struct BongAlertView: View {
     
-    /// 얼럿 타이틀
+    // 타이틀
     public var title: String = ""
-    /// 얼럿 내용
+    // 내용
     public var content: String = ""
-    /// 확인버튼
+    // 확인버튼
     public let confirmBtn: BongAlertButtonView
-    /// 취소버튼
+    // 취소버튼
     public let cancelBtn: BongAlertButtonView
     
     public init(title: String,
@@ -36,20 +36,22 @@ public struct BongAlertView: View {
                 .opacity(0.1)
                 .ignoresSafeArea()
             
-            VStack(alignment: .center, spacing: .zero) {
-                // 타이틀
-                if "" != self.title {
-                    Text(self.title)
+            VStack(spacing: .zero) {
+                
+                VStack(spacing: .zero) {
+                    // 타이틀
+                    if "" != self.title {
+                        Text(self.title)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                    // 내용
+                    Text(self.content)
                         .foregroundColor(.black)
-                        .frame(height: 49)
                         .multilineTextAlignment(.center)
                 }
-                
-                // 내용
-                Text(self.content)
-                    .foregroundColor(.black)
-                    .frame(height: 100)
-                    .multilineTextAlignment(.center)
+                .frame(height: 99)
                 
                 Rectangle()
                     .frame(width: 300, height: 1)
@@ -68,7 +70,7 @@ public struct BongAlertView: View {
                 }
                 .frame(height: 50)
             }
-            .frame(width: 300, height: "" != self.title ? 200 : 150)
+            .frame(width: 300, height: 150)
             .background(Color.white)
             .cornerRadius(8)
         }

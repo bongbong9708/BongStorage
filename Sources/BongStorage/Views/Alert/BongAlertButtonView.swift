@@ -19,16 +19,18 @@ public struct BongAlertButtonView: View {
     public typealias Action = () -> ()
     
     @Binding public var isPresented: Bool
-    /// 버튼 텍스트
+    // 텍스트
     public var btnTitle: String = "확인"
-    /// 버튼 배경색
+    // 배경색
     public var btnColor: Color = .blue
-    /// 전달받은 액션
+    // 전달받은 액션
     public var action: Action
-    /// Alert 타입(1. 확인, 2. 취소)
+    // Alert 타입
     public var type : BongAlertButtonType
     
-    public init(type: BongAlertButtonType, isPresented: Binding<Bool>, action: @escaping Action) {
+    public init(type: BongAlertButtonType,
+                isPresented: Binding<Bool>,
+                action: @escaping Action) {
         self._isPresented = isPresented
         
         switch type {
@@ -39,18 +41,12 @@ public struct BongAlertButtonView: View {
             self.btnTitle = "취소"
             self.btnColor = .red
         }
-        
         self.action = action
-        
         self.type = type
     }
     
     public var body: some View {
-        
         Button {
-            // 진동 효과
-            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-            
             // 얼럿 닫아주기
             self.isPresented = false
             
@@ -61,7 +57,6 @@ public struct BongAlertButtonView: View {
                 .foregroundColor(self.btnColor)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-
     }
 }
 
