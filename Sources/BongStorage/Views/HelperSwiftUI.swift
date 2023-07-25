@@ -31,3 +31,39 @@ open class ClearBackgroundView: UIView {
         parentView.backgroundColor = .clear
     }
 }
+
+// MARK: - safeArea 길이 구하기
+extension UIApplication {
+    public var keyWindow: UIWindow? {
+        connectedScenes
+            .compactMap {
+                $0 as? UIWindowScene
+            }
+            .flatMap {
+                $0.windows
+            }
+            .first {
+                $0.isKeyWindow
+            }
+    }
+}
+
+public struct SafeAreaInsetsKey: EnvironmentKey {
+    public static var defaultValue: EdgeInsets {
+        (UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero).insets
+    }
+}
+
+extension EnvironmentValues {
+
+    public var safeAreaInsets: EdgeInsets {
+        self[SafeAreaInsetsKey.self]
+    }
+}
+
+extension UIEdgeInsets {
+
+    public var insets: EdgeInsets {
+        EdgeInsets(top: top, leading: left, bottom: bottom, trailing: right)
+    }
+}

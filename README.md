@@ -6,6 +6,9 @@
 [작업진행 프로세스]
 - developer > 각각브런치 > 완료된 사항 > developer 커밋, main 병합 > Tag 발행
 
+2023. 07. 25 
+- safeArea 길이 구하는 로직 추가.
+
 2023. 07. 19
 - CustomAlert 추가.
 
