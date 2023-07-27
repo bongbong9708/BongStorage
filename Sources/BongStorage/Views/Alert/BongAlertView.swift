@@ -19,6 +19,9 @@ public struct BongAlertView: View {
     // 취소버튼
     public let cancelBtn: BongAlertButtonView
     
+    @State private var textField1Text = ""
+    @State private var textField2Text = ""
+    
     public init(title: String,
                 content: String,
                 confirmBtn: () -> BongAlertButtonView,
@@ -50,6 +53,10 @@ public struct BongAlertView: View {
                     Text(self.content)
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
+                    
+                    TextField("TextField 1", text: $textField1Text)
+                    
+                    SecureField("TextField 2", text: $textField2Text)
                 }
                 .frame(height: 99)
                 
