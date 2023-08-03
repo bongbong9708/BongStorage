@@ -32,7 +32,7 @@ open class ClearBackgroundView: UIView {
     }
 }
 
-// MARK: - safeArea 길이 구하기
+// MARK: - ㄴ safeArea 길이 구하기
 extension UIApplication {
     public var keyWindow: UIWindow? {
         connectedScenes
@@ -65,5 +65,28 @@ extension UIEdgeInsets {
 
     public var insets: EdgeInsets {
         EdgeInsets(top: top, leading: left, bottom: bottom, trailing: right)
+    }
+}
+
+// MARK: - ㄴ 일부 모서리 둥글게 하기
+extension View {
+    public func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+public struct RoundedCorner: Shape {
+
+    public var radius: CGFloat = .infinity
+    public var corners: UIRectCorner = .allCorners
+
+    public init(radius: CGFloat, corners: UIRectCorner) {
+        self.radius = radius
+        self.corners = corners
+    }
+    
+    public func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
     }
 }
