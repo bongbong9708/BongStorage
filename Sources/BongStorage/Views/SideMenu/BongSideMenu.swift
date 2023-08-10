@@ -48,8 +48,8 @@ public struct BongSideMenu<Content>: View where Content: View {
                 }
                 .frame(width: self.width)
             }
-            .transition(.opacity.combined(with: .move(edge: .bottom)))
-            .offset(y: translation)
+            .transition(.opacity.combined(with: .move(edge: .trailing)))
+            .offset(x: translation)
             .gesture(
                 DragGesture()
                     .updating($translation) { value, state, _ in
