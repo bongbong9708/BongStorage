@@ -24,49 +24,39 @@ public struct BongSideMenu<Content>: View where Content: View {
     }
     
     public var body: some View {
-        ZStack {
-            Color.black.opacity(0.3)
-                .opacity(isPresented ? 1 : 0)
-                .onTapGesture {
-                    isPresented = false
-                }
+        HStack(alignment: .top) {
+            Spacer()
             
-            HStack(alignment: .top) {
-                Spacer()
+            ZStack(alignment: .top) {
+                Color.white
                 
-                ZStack(alignment: .top) {
-                    Color.white
+                VStack(spacing: 0) {
                     
-                    VStack(spacing: 0) {
-                        
-                        Rectangle()
-                            .frame(height: safeAreaInsets.top)
-                            .foregroundColor(.white)
-                        
-                        self.content
+                    Rectangle()
+                        .frame(height: safeAreaInsets.top)
+                        .foregroundColor(.white)
+                    
+                    self.content
+                }
+            }
+            .frame(width: self.width)
+        }
+        .transition(.opacity.combined(with: .move(edge: .trailing)))
+        .offset(x: translation)
+        .gesture(
+            DragGesture()
+                .updating($translation) { value, state, _ in
+                    if 0 <= value.translation.width {
+                        let translation = min(self.width, max(-self.width, value.translation.width))
+                        state = translation
                     }
                 }
-                .frame(width: self.width)
-            }
-            .transition(.opacity.combined(with: .move(edge: .trailing)))
-            .offset(x: translation)
-            .gesture(
-                DragGesture()
-                    .updating($translation) { value, state, _ in
-                        if 0 <= value.translation.width {
-                            let translation = min(self.width, max(-self.width, value.translation.width))
-                            state = translation
-                        }
+                .onEnded({ value in
+                    if value.translation.width >= width/3 {
+                        self.isPresented = false
                     }
-                    .onEnded({ value in
-                        if value.translation.width >= width/3 {
-                            self.isPresented = false
-                        }
-                    })
-            )
-        }
-        .edgesIgnoringSafeArea(.all)
-        // end ZStack
+                })
+        )
     }
 }
 
