@@ -46,7 +46,7 @@ public struct BongSideMenu<Content>: View where Content: View {
                         self.content
                     }
                 }
-                .frame(height: self.width)
+                .frame(width: self.width)
             }
             .transition(.opacity.combined(with: .move(edge: .bottom)))
             .offset(y: translation)
